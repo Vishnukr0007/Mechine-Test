@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 const app = express();
 const PORT = 5000;
 const EmployeeRoute = require('./routes/EmployeeRoute');  // Ensure this file exists
@@ -11,8 +12,8 @@ app.use(express.urlencoded({ extended: true })); // URL encoding with extended t
 app.use(cors());
 
 // Use routes
-app.use('/api/employees', EmployeeRoute);  // Mount the employee route with the correct path
-
+app.use(EmployeeRoute);  // Mount the employee route with the correct path
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // MongoDB connection
 mongoose.connect('mongodb://localhost:27017/MTEST', {
     // Ensure connection is stable
